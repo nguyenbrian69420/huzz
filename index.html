@@ -39,7 +39,7 @@
     <div class="container">
         <h1>HUZZ</h1>
         <label for="inputText">Enter text:</label><br>
-        <input type="text" id="inputText" placeholder="Type here..." oninput="removeExtraSpaces()" onkeydown="handleEnter(event)"><br>
+        <input type="text" id="inputText" placeholder="Type here..." onkeydown="blockSpace(event)" oninput="removeExtraSpaces()" onkeydown="handleEnter(event)"><br>
         <button onclick="transformText()">Transform</button>
         <div id="output"></div>
     </div>
@@ -89,12 +89,18 @@
 
         function removeExtraSpaces() {
             const input = document.getElementById('inputText');
-            input.value = input.value.replace(/\s+/g, ' ').trim();
+            input.value = input.value.replace(/\s+/g, '').trim();
         }
 
         function handleEnter(event) {
             if (event.key === "Enter") {
                 transformText();
+            }
+        }
+
+        function blockSpace(event) {
+            if (event.key === " ") {
+                event.preventDefault(); // Prevent spacebar from adding spaces
             }
         }
     </script>
