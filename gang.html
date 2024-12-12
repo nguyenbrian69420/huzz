@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Transformer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        #output {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Word Transformer</h1>
+        <label for="inputText">Enter text:</label><br>
+        <input type="text" id="inputText" placeholder="Type here..." oninput="removeExtraSpaces()"><br>
+        <button onclick="transformText()">Transform</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function replaceEndsWithUzz(text) {
+            const vowels = "aeiouAEIOU";
+            const words = text.split(' ');
+            let transformedWords = [];
+
+            for (let word of words) {
+                let endVowelIndex = -1;
+                let startVowelIndex = -1;
+
+                for (let i = word.length - 1; i >= 0; i--) {
+                    if (vowels.includes(word[i])) {
+                        endVowelIndex = i;
+                        for (let j = i - 1; j >= -1; j--) {
+                            if (j === -1 || !vowels.includes(word[j])) {
+                                startVowelIndex = j + 1;
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+
+                if (endVowelIndex !== -1) {
+                    transformedWords.push(word.slice(0, startVowelIndex) + 'u' + 'zz');
+                } else {
+                    transformedWords.push(word + 'zz');
+                }
+            }
+            return transformedWords.join(' ');
+        }
+
+        function transformText() {
+            const inputText = document.getElementById('inputText').value.trim();
+            const transformed = replaceEndsWithUzz(inputText);
+            document.getElementById('output').textContent = transformed;
+        }
+
+        function removeExtraSpaces() {
+            const input = document.getElementById('inputText');
+            input.value = input.value.replace(/\s+/g, ' ').trim();
+        }
+    </script>
+</body>
+</html>
