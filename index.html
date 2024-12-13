@@ -40,7 +40,7 @@
         <h1>HUZZ</h1>
         <label for="inputText">Enter text:</label><br>
         <form onsubmit="transformText(); return false;">
-            <input type="text" id="inputText" placeholder="Type here..." oninput="filterInput()" onkeydown="handleEnter(event)"><br>
+            <input type="text" id="inputText" autocomplete="off" placeholder="Type here..." oninput="filterInput()" onkeydown="handleEnter(event)"><br>
             <button type="submit">Transform</button>
         </form>
         <div id="output"></div>
