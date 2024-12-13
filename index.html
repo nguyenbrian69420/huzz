@@ -40,7 +40,7 @@
         <h1>HUZZ</h1>
         <label for="inputText">Enter text:</label><br>
         <form onsubmit="transformText(); return false;">
-            <input type="text" id="inputText" autocomplete="off" placeholder="Type here..." oninput="filterInput()" onkeydown="handleEnter(event)"><br>
+            <input type="text" id="inputText" autocomplete="off" placeholder="Type here..." oninput="filterInput()"><br>
             <button type="submit">Transform</button>
         </form>
         <div id="output"></div>
@@ -48,7 +48,7 @@
 
     <script>
         function replaceEndsWithUzz(text) {
-            // If input is empty or contains only spaces, return "uzz"
+            // If input is empty, return "uzz"
             if (!text.trim()) {
                 return "uzz";
             }
@@ -91,14 +91,8 @@
 
         function filterInput() {
             const input = document.getElementById('inputText');
-            // Allow only letters (a-z, A-Z) and spaces
-            input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
-        }
-
-        function handleEnter(event) {
-            if (event.key === "Enter") {
-                transformText();
-            }
+            // Allow only letters (a-z, A-Z), disallow spaces and other characters
+            input.value = input.value.replace(/[^a-zA-Z]/g, '');
         }
     </script>
 </body>
